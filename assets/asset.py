@@ -27,6 +27,22 @@ class Asset:
         self.children = children
         self.data = data
 
+    @property
+    def image(self):
+        return self.data.image
+
+    @property
+    def font(self):
+        return self.data.font
+
+    @property
+    def sound(self):
+        return self.data.sound
+
+    @property
+    def sprite_sheet(self):
+        return self.data.sprite_sheet
+
     def _get(self, name: str):
         if name == "":
             return self
