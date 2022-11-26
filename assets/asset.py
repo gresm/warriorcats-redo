@@ -31,17 +31,41 @@ class Asset:
     def image(self):
         return self.data.image
 
+    @image.setter
+    def image(self, value: Optional[pg.Surface]):
+        self.data.image = value
+
     @property
     def font(self):
         return self.data.font
+
+    @font.setter
+    def font(self, value: Optional[FontLoader]):
+        self.data.font = value
 
     @property
     def sound(self):
         return self.data.sound
 
+    @sound.setter
+    def sound(self, value: Optional[pg.Sound]):
+        self.data.sound = value
+
     @property
     def sprite_sheet(self):
         return self.data.sprite_sheet
+
+    @sprite_sheet.setter
+    def sprite_sheet(self, value: Optional[SpriteSheet]):
+        self.data.sprite_sheet = value
+
+    def add(self, asset: Asset):
+        self.children[asset.name] = asset
+
+    def remove(self, asset: Asset | str):
+        if isinstance(asset, Asset):
+            asset = asset.name
+        del self.children[asset]
 
     def _get(self, name: str):
         if name == "":
