@@ -3,6 +3,11 @@ from __future__ import annotations
 from typing import Optional
 import pygame as pg
 
+try:
+    from .parsers import FontLoader, SpriteSheet
+except ImportError:
+    from parsers import FontLoader, SpriteSheet
+
 
 class AssetError(Exception):
     pass
@@ -136,11 +141,3 @@ class AssetData:
         if ret is None:
             raise AssetError(f"Property \"{name}\" not found. (from \"{__from}\")")
         return ret
-
-
-class FontLoader:
-    pass
-
-
-class SpriteSheet:
-    pass
