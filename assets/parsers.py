@@ -33,4 +33,23 @@ class FontLoader:
 
 
 class SpriteSheet:
-    pass
+    def __init__(self, img: pg.Surface, sprite_tile: tuple[int, int],
+                 index_naming: dict[str, tuple[int, int]] | None = None, do_cache: bool = True):
+        self.img = img
+        self.sprite_tile = sprite_tile
+        self.index_naming = index_naming
+        self.do_cache = do_cache
+        self.cache: dict[tuple[int, int], pg.Surface] = {}
+
+    def get(self, at: str | tuple[int, int]) -> pg.Surface:
+        if at in self.index_naming:
+            at = self.index_naming[at]
+        if at in self.cache:
+            return self.cache[at]
+        ret = self.img.subsurface(
+            at[0] * self.sprite_tile[0], at[1] * self.sprite_tile[1],
+            (at[0] + 1) * self.sprite_tile[0], (at[1] + 1) * self.sprite_tile[1]
+        )
+        if self.do_cache:
+            self.cache[at] = ret
+        return ret
